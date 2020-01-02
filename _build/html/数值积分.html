@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>数值积分 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="代数方程数值解" href="代数方程数值解.html" />
+    <link rel="prev" title="拟合算法" href="拟合算法.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">数值积分</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">一般求积公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">等距节点求积公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">复化求积公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#romberg">Romberg积分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gauss">Gauss求积公式</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>数值积分</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/数值积分.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>数值积分<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>一般求积公式<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>设 <span class="math notranslate nohighlight">\(\{x_j\}_{j=0}^n\)</span> 是 <span class="math notranslate nohighlight">\([a,b]\)</span> 上包含两端点的分划，则一般求积公式为</p>
+<div class="math notranslate nohighlight">
+\[\int_a^b f(x)\mathrm d x\approx\sum_{j=0}^n A_jf(x_j),\ A_j=\int_a^b l_j(x)\mathrm d x\]</div>
+<p>截断误差</p>
+<div class="math notranslate nohighlight">
+\[r(f)=\frac{1}{(n+1)!}\int_a^bf^{(n+1)}(\xi)\omega_{n+1}(x)\mathrm d x\]</div>
+<p>定义 <strong>代数精确度</strong>：若 <span class="math notranslate nohighlight">\(\forall f\in\mathbb{P}_m\)</span></p>
+<div class="math notranslate nohighlight">
+\[\int_a^b f(x)\mathrm d x=\sum_{j=0}^n A_jf(x_j),\ \int_a^b x^{m+1}\mathrm d x\ne \sum_{j=0}^n A_jx_j^{m+1}\]</div>
+<p>则该求积公式具有 m 次代数精确度。事实上只需要对泰勒基进行验证即可。 <strong>一般求积公式的代数精确度至少为 n</strong> 。</p>
+</div>
+<div class="section" id="id3">
+<h2>等距节点求积公式<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>将区间 n 等分，则可得求积系数公式：</p>
+<div class="math notranslate nohighlight">
+\[A_j=(b-a)C_j^{(n)},\ C_j^{(n)}=\frac{(-1)^{n-j}}{j!(n-j)!n}\int_0^n \prod_{i\ne j}(s-i)\mathrm d s,\ j=0,1,\cdots,n\]</div>
+<p>有以下性质：</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\sum_{j=0}^nC_j^{(n)}\equiv 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(n\le7\)</span> 时， <span class="math notranslate nohighlight">\(\{C_j^{(n)}\}_{j=0}^n\)</span> 恒正，求积公式计算稳定</p></li>
+<li><p>n 为偶数时，求积公式代数精确度为 n+1</p></li>
+</ol>
+<p>两种常用求积公式：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 10%" />
+<col style="width: 42%" />
+<col style="width: 35%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>n</p></th>
+<th class="head"><p>名称</p></th>
+<th class="head"><p>公式</p></th>
+<th class="head"><p>余项估计</p></th>
+<th class="head"><p>代数精确度</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>梯形公式</p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{b-a}{2}[f(a)+f(b)]\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\frac{(b-a)^3}{12}f^{(2)}(\eta)\)</span></p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Simpson公式</p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{b-a}{6}[f(a)+4f(\frac{a+b}{2})+f(b)]\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\frac{(b-a)^5}{2880}f^{(4)}(\eta)\)</span></p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>证明余项估计需综合使用最值定理与介值定理，把 f 的导函数从积分号中提出来。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>复化求积公式<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>将空间 n 等分，步长 <span class="math notranslate nohighlight">\(h=\frac{b-a}{n}\)</span> ，记</p>
+<div class="math notranslate nohighlight">
+\[\Sigma_1=f(a)+f(b),\ \Sigma_2=\sum_{j=0}^{n-1}f(x_{j+\frac12}),\ \Sigma_3=\sum_{j=1}^{n-1}f(x_j)\]</div>
+<p>则常用格式：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 76%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>公式</p></th>
+<th class="head"><p>收敛阶</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>复化中矩形公式</p></td>
+<td><p><span class="math notranslate nohighlight">\(H_n=h\Sigma_2\)</span></p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>复化梯形公式</p></td>
+<td><p><span class="math notranslate nohighlight">\(T_n=\frac{h}{2}(\Sigma_1+2\Sigma_3),\ T_{2n}=\frac12 T_n+\frac12 H_n\)</span></p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>复化Simpson公式</p></td>
+<td><p><span class="math notranslate nohighlight">\(S_n=\frac13 T_n+\frac23 H_n\)</span></p></td>
+<td><p>4</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="romberg">
+<h2>Romberg积分<a class="headerlink" href="#romberg" title="永久链接至标题">¶</a></h2>
+<p>Ricardson外推法：若</p>
+<div class="math notranslate nohighlight">
+\[F_m(h)=A+a_m^{(m)}h^{n_m}+a_{m+1}^{(m)}h^{n_{m+1}}+\cdots,\ n_m&lt;n_{m+1}&lt;\cdots\]</div>
+<p>则取 <span class="math notranslate nohighlight">\(q\in(0,1)\)</span> ，令</p>
+<div class="math notranslate nohighlight">
+\[F_{m+1}(h)=\frac{F_m(qh)-q^{n_m}F_m(h)}{1-q^{n_m}}\]</div>
+<p>可以消除低次项，提高精度。取 <span class="math notranslate nohighlight">\(q=\frac12\)</span> 即得 Romberg 积分：</p>
+<div class="math notranslate nohighlight">
+\[F_{m}(h)=\frac{4^mF_{m-1}(\frac h2)-F_{m-1}(h)}{4^m-1}\]</div>
+<p>所以计算过程为：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+<col style="width: 2%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>k</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(H_{2^kn}\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(F_0(\frac{h}{2^k})\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(F_1(\frac{h}{2^k})\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(F_2(\frac{h}{2^k})\)</span></p></th>
+<th class="head"><p>…</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p><span class="math notranslate nohighlight">\(H_n=h\Sigma_2^{(h)}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(T_n=\frac h 2(\Sigma_1+2\Sigma_3^{(h)})\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(S_n=\frac{4T_{2n}-T_n}{4-1}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(C_n=\frac{16S_{2n}-S_n}{16-1}\)</span></p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(H_{2n}=\frac h 2\Sigma_2^{(\frac h 2)}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(T_{2n}=\frac12(T_n+H_n)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(S_{2n}=\frac{4T_{4n}-T_{2n}}{4-1}\)</span></p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p></p></td>
+<td><p><span class="math notranslate nohighlight">\(T_{4n}=\frac12(T_{2n}+H_{2n})\)</span></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="gauss">
+<h2>Gauss求积公式<a class="headerlink" href="#gauss" title="永久链接至标题">¶</a></h2>
+<p>若求积公式具有 2n+1 次代数精确度，则为 Gauss 求积公式， <span class="math notranslate nohighlight">\(\{x_j\}_{j=0}^n\)</span> 为 Gauss 点。其充要条件为 <span class="math notranslate nohighlight">\(\omega_{n+1}(x)\perp\mathbb{P}_n\)</span> 。</p>
+<p>则：闭区间 <span class="math notranslate nohighlight">\([a, b]\)</span> 上 n+1 次正交多项式的所有零点就是 Gauss 点。若 <span class="math notranslate nohighlight">\([a, b]=[-1,1]\)</span> ，Gauss 点就是 n+1 次 Legendre 多项式 <span class="math notranslate nohighlight">\(P_{n+1}(x)\)</span> 的全部零点。</p>
+<p>Gauss 求积公式的性质：</p>
+<ol class="arabic simple">
+<li><p>余项估计：</p></li>
+</ol>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\frac{f^{(2n+2)}(\eta)}{(2n+2)!}\int_a^b\omega_{n+1}^2(x)\mathrm d x\]</div>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Gauss 求积系数 <span class="math notranslate nohighlight">\(\{A_j\}_{j=0}^n\)</span> 满足 <span class="math notranslate nohighlight">\(\sum_{j=0}^n A_j=b-a\)</span></p></li>
+<li><p>Gauss 求积系数恒正，因而 Gauss 求积公式计算稳定</p></li>
+</ol>
+<p>已知 n，要求建立 Gauss-Legendre 求积公式。三步：</p>
+<ol class="arabic simple">
+<li><p>求 Gauss 点：解 <span class="math notranslate nohighlight">\(P_{n+1}(x)=0\)</span></p></li>
+<li><p>求求积系数：用公式 <span class="math notranslate nohighlight">\(A_j=\int_{-1}^1 l_j(x)\mathrm d x\)</span> 或解线性方程组</p></li>
+</ol>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\int_{-1}^1 f_i(x)\mathrm d x=\sum_{j=0}^nA_jf_i(x_j),\quad\text{其中}f_i\triangleq x^i, i=0,1,\cdots,n\]</div>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>写出结果</p></li>
+</ol>
+<p>推而广之，有带权的 Gauss 求积公式：</p>
+<div class="math notranslate nohighlight">
+\[\int_a^b f(x)\omega(x)\mathrm d x\approx\sum_{j=0}^n A_jf(x_j),\ A_j=\int_a^b l_j(x)\omega(x)\mathrm d x\]</div>
+<p>其充要条件同样是在权重下 <span class="math notranslate nohighlight">\(\omega_{n+1}(x)\perp\mathbb{P}_n\)</span> 。为了建立带权的求积公式，往往需要先求出权重下的正交多项式，一般采用待定系数法。例如设二次正交多项式为 <span class="math notranslate nohighlight">\(p_2(x)=x^2+px+q\)</span> ，再根据 <span class="math notranslate nohighlight">\(p_2(x)\perp\mathbb{P}_1\)</span> 解方程求出系数：</p>
+<div class="math notranslate nohighlight">
+\[0 =(p_2,x^i)_\omega=\int_a^b p_2(x)x^i\omega(x)\mathrm d x,\quad i=0,1\]</div>
+<p>之后使用之前的三步。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="代数方程数值解.html" class="btn btn-neutral float-right" title="代数方程数值解" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="拟合算法.html" class="btn btn-neutral float-left" title="拟合算法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

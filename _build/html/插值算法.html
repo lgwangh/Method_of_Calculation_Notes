@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>插值算法 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="拟合算法" href="拟合算法.html" />
+    <link rel="prev" title="矩阵的特征值" href="矩阵的特征值.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">插值算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lagarange">Lagarange插值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#newton">Newton插值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hermite">Hermite插值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">样条插值</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">分片线性插值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">三次样条插值</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>插值算法</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/插值算法.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>插值算法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="lagarange">
+<h2>Lagarange插值<a class="headerlink" href="#lagarange" title="永久链接至标题">¶</a></h2>
+<p>已知表格函数 <span class="math notranslate nohighlight">\(\{x_i\}_{i=0}^n, \{f(x_i)\}_{i=0}^n\)</span> ，在 n 此代数多项式空间中寻找 <span class="math notranslate nohighlight">\(p_n(x)\in\mathbb{P}_n\)</span> 使得 <span class="math notranslate nohighlight">\(\{p_n(x_i)\}_{i=0}^n=\{f(x_i)\}_{i=0}^n\)</span> 。其解为：</p>
+<div class="math notranslate nohighlight">
+\[L_n(x)=\sum_{i=0}^nf(x_i)l_i(x),\text{其中 Lagarange 基}
+l_i(x)=\prod_{j\ne i}\frac{x-x_j}{x_i-x_j},\ i=0,1,2,\cdots,n\]</div>
+<p>不需要展开到泰勒基。</p>
+<p>性质：</p>
+<ol class="arabic simple">
+<li><p>在 <span class="math notranslate nohighlight">\(\mathbb{P}_n\)</span> 中满足插值条件的多项式是唯一的。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sum_{i=0}^n l_i(x)\equiv 1\)</span></p></li>
+<li><p>余项估计：设 <span class="math notranslate nohighlight">\(f(x)\)</span> 在 <span class="math notranslate nohighlight">\([a, b]\)</span> 上 <span class="math notranslate nohighlight">\(n+1\)</span> 阶可导, 则存在 <span class="math notranslate nohighlight">\(\xi\in (a, b)\)</span> 使得</p></li>
+</ol>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[f(x)=L_n(x)+\frac{f^{(n+1)}(\xi)}{(n+1)!}\omega_{n+1}(x),\ \text{其中}\omega_{n+1}(x)=\prod_{i=0}^n(x-x_i)\]</div>
+</div></blockquote>
+</div>
+<div class="section" id="newton">
+<h2>Newton插值<a class="headerlink" href="#newton" title="永久链接至标题">¶</a></h2>
+<p>定义 <strong>差商</strong> ：函数 <span class="math notranslate nohighlight">\(f(x)\)</span> 以 <span class="math notranslate nohighlight">\(x_0\)</span> 为基点, 以 <span class="math notranslate nohighlight">\(x_k\)</span> 为邻点的一阶差商定义为 <span class="math notranslate nohighlight">\(f[x_0, x_k] = \frac{f(x_k)−f(x_0)}{x_k−x_0}\)</span> ; 函数 <span class="math notranslate nohighlight">\(f(x)\)</span> 以 <span class="math notranslate nohighlight">\(x_0, x_1, \cdots,x_{k-1}\)</span> 为基点，以 <span class="math notranslate nohighlight">\(x_{k−1}, x_k\)</span> 为邻点的 k 阶差商定义为：</p>
+<div class="math notranslate nohighlight">
+\[f[x_0,\cdots,x_{k-2},x_{k-1},x_k]=\frac{f[x_0,\cdots,x_{k-2},x_k]-f[x_0,\cdots,x_{k-2},x_{k-1}]}{x_k-x_{k-1}}\]</div>
+<p>而 Newton 基定义为：</p>
+<div class="math notranslate nohighlight">
+\[\omega_0(x)=1, \omega_i(x)=\prod_{j=0}^{i-1}(x-x_j)\]</div>
+<p>则：</p>
+<div class="math notranslate nohighlight">
+\[N_n(x)=f(x_0)+f[x_0,x_1]\omega_1(x)+\cdots+f[x_0,x_1,\cdots,x_n]\omega_n(x)\]</div>
+<p>事实上， <span class="math notranslate nohighlight">\(L_n(x)\equiv N_n(x)\)</span> 。</p>
+</div>
+<div class="section" id="hermite">
+<h2>Hermite插值<a class="headerlink" href="#hermite" title="永久链接至标题">¶</a></h2>
+<p>给定的条件既有函数值又有导函数值时使用。一般采用待定系数法确定，例如给定：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_j\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(a\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(c\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(b\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(f(x_j)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(y(a)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(y(c)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(y(b)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(f'(x_j)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(y'(a)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(y'(c)\)</span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>则先写出 Lagarange 插值函数 <span class="math notranslate nohighlight">\(L_2(x)\)</span> ，并设 <span class="math notranslate nohighlight">\(H(x)=L_2(x)+(Ax+B)(x-a)(x-b)(x-c)\)</span> ，再利用 <span class="math notranslate nohighlight">\(H'(a)=y'(a), H'(c)=y'(c)\)</span> 得出待定系数即可。其余项估计为：</p>
+<div class="math notranslate nohighlight">
+\[f(x)=H(x)+\frac{f^{(5)}(\xi)}{5!}(x-a)^2(x-c)^2(x-b)\]</div>
+</div>
+<div class="section" id="id2">
+<h2>样条插值<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>等距节点高次插值会产生 Runge 现象，解决方法有Legengre 谱配点法以及样条插值。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>Legengre 谱配点法</strong> ：Legendre 正交多项式系 <span class="math notranslate nohighlight">\(\{P_k(x)\}_{k=0}^\infty\)</span> 。若节点满足 <span class="math notranslate nohighlight">\(x_0=-1,x_N=1,\{x_j\}_{j=1}^{N-1}\)</span> 为 <span class="math notranslate nohighlight">\(\frac{\mathrm d P_N}{\mathrm d x}(x)\)</span> 的零点，则此类节点能确保 <span class="math notranslate nohighlight">\([-1,1]\)</span> 内的高次插值依然准确。</p>
+</div>
+<div class="section" id="id3">
+<h3>分片线性插值<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>给定分划 <span class="math notranslate nohighlight">\(\{x_j\}_{j=0}^n\)</span> ，则分片线性函数空间 <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> （在 <span class="math notranslate nohighlight">\([a,b]\)</span> 连续的全体折线）是 <span class="math notranslate nohighlight">\(C[a,b]\)</span> （连续函数空间）的 n+1 维闭子空间。其基为屋顶函数：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\phi_0(x)&amp;=\left\{\begin{aligned}
+\frac{x_1-x}{h_1},&amp;\quad x\in[x_0,x_1]\\
+0,&amp;\quad x\notin[x_0,x_1]
+\end{aligned}\right. ,\
+\phi_n(x)=\left\{\begin{aligned}
+\frac{x-x_{n-1}}{h_n},&amp;\quad x\in[x_{n-1},x_n]\\
+0,&amp;\quad x\notin[x_{n-1},x_n]
+\end{aligned}\right. ,\\
+\phi_j(x)&amp;=\left\{\begin{aligned}
+\frac{x-x_{j-1}}{h_j},&amp;\quad x\in[x_{j-1},x_j]\\
+\frac{x_{j+1}-x}{h_{j+1}},&amp;\quad x\in[x_j,x_{j+1}]\\
+0,&amp;\quad x\notin[x_{j-1},x_{j+1}]
+\end{aligned}\right.
+\end{aligned}\end{split}\]</div>
+<p>则对于表格函数 <span class="math notranslate nohighlight">\(\{x_j\}_{j=0}^n\mapsto\{u_j\}_{j=0}^n\)</span> ，使用分片线性插值算子 <span class="math notranslate nohighlight">\(\mathcal{I}_n\)</span> 得</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{I}_n u(x)=\sum_{j=0}^nu_j\phi_j(x)\]</div>
+<p>余项估计：</p>
+<div class="math notranslate nohighlight">
+\[|u(x)-\mathcal{I}_n u(x)|\le\frac{h}{2}\left\|\frac{\mathrm d^2 u}{\mathrm d x^2}\right\|_\infty|x-x_j|,\ \forall x\in[x_{j-1},x_{j+1}]\]</div>
+</div>
+<div class="section" id="id4">
+<h3>三次样条插值<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>三次样条插值能够保证二阶导函数连续。一般采用三弯矩法。记待定的弯矩为 <span class="math notranslate nohighlight">\(S''(x_j)=M_j,\ j=0,1,\cdots,n\)</span> ，则</p>
+<div class="math notranslate nohighlight">
+\[S''(x)=M_{j-1}\frac{x_j-x}{h_{j-1}}+M_j\frac{x-x_{j-1}}{h_{j-1}},\ \ x_{j-1}\le x\le x_j\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(h_{j-1}=x_j-x_{j-1}\)</span> 。对其积分两次，并应用插值条件</p>
+<div class="math notranslate nohighlight">
+\[S(x_{j-1})=y_{j-1},\ S(x_j)=y_j\]</div>
+<p>可以确定</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+S(x)&amp;=M_{j-1}\frac{(x_j-x)^3}{6h_{j-1}}+M_j\frac{(x-x_{j-1})^3}{6h_{j-1}}\\
+&amp;+\left(y_{j-1}-\frac{h_{j-1}^2}{6}M_{j-1}\right)\frac{x_j-x}{h_{j-1}}+\left(y_j-\frac{h_{j-1}^2}{6}M_j\right)\frac{x-x_{j-1}}{h_{j-1}},\ \ x_{j-1}\le x\le x_j
+\end{aligned}\end{split}\]</div>
+<p>再根据拼接条件</p>
+<div class="math notranslate nohighlight">
+\[S'(x_j+0)=S'(x_j-0),\ \ j=1,2,\cdots,n-1\]</div>
+<p>则得到三弯矩方程</p>
+<div class="math notranslate nohighlight">
+\[\mu_j M_{j-1}+2M_j+\lambda_j M_{j+1}=d_j,\ \ j=1,2,\cdots,n-1\]</div>
+<p>其中</p>
+<div class="math notranslate nohighlight">
+\[\mu_j=\frac{h_{j-1}}{h_{j-1}+h_j},\ \lambda_j=1-\mu_j,\ d_j=\frac{6}{h_{j-1}+h_j}\left(\frac{y_{j+1}-y_j}{h_j}-\frac{y_j-y_{j-1}}{h_{j-1}}\right)\]</div>
+<p>共有 <span class="math notranslate nohighlight">\(n+1\)</span> 个未知的弯矩，但仅有 <span class="math notranslate nohighlight">\(n-1\)</span> 个三弯矩方程，因此必须用边界条件补充两个方程才能求解，常见的边界条件有三种：</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(S'(x_0)=y_0',S'(x_n)=y_n'\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(S''(x_0)=y_0'',S''(x_n)=y_n''\)</span></p></li>
+<li><p>周期性边界条件， <span class="math notranslate nohighlight">\(S(x_0)=S(x_n),S'(x_0)=S'(x_n),S''(x_0)=S''(x_n),\)</span></p></li>
+</ol>
+<p>最终总结成 <span class="math notranslate nohighlight">\(A\pmb M=\pmb b\)</span> 的形式并求解，最后写成分段函数。</p>
+<p><span class="math notranslate nohighlight">\(S(x)\)</span> 四阶一致收敛于 <span class="math notranslate nohighlight">\(f(x)\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[\|(f-S)^{(q)}\|_\infty\le C_q h^{4-q}\|f^{(q)}\|_\infty,\quad q=0,1,2\]</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="拟合算法.html" class="btn btn-neutral float-right" title="拟合算法" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="矩阵的特征值.html" class="btn btn-neutral float-left" title="矩阵的特征值" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

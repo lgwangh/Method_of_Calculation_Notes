@@ -1,0 +1,151 @@
+========
+插值算法
+========
+
+Lagarange插值
+=============
+
+已知表格函数 :math:`\{x_i\}_{i=0}^n, \{f(x_i)\}_{i=0}^n` ，在 n 此代数多项式空间中寻找 :math:`p_n(x)\in\mathbb{P}_n` 使得 :math:`\{p_n(x_i)\}_{i=0}^n=\{f(x_i)\}_{i=0}^n` 。其解为：
+
+.. math::
+  L_n(x)=\sum_{i=0}^nf(x_i)l_i(x),\text{其中 Lagarange 基}
+  l_i(x)=\prod_{j\ne i}\frac{x-x_j}{x_i-x_j},\ i=0,1,2,\cdots,n
+
+不需要展开到泰勒基。
+
+性质：
+
+1. 在 :math:`\mathbb{P}_n` 中满足插值条件的多项式是唯一的。
+2. :math:`\sum_{i=0}^n l_i(x)\equiv 1`
+3. 余项估计：设 :math:`f(x)` 在 :math:`[a, b]` 上 :math:`n+1` 阶可导, 则存在 :math:`\xi\in (a, b)` 使得
+  
+  .. math::
+    f(x)=L_n(x)+\frac{f^{(n+1)}(\xi)}{(n+1)!}\omega_{n+1}(x),\ \text{其中}\omega_{n+1}(x)=\prod_{i=0}^n(x-x_i)
+
+Newton插值
+==========
+
+定义 **差商** ：函数 :math:`f(x)` 以 :math:`x_0` 为基点, 以 :math:`x_k` 为邻点的一阶差商定义为 :math:`f[x_0, x_k] = \frac{f(x_k)−f(x_0)}{x_k−x_0}` ; 函数 :math:`f(x)` 以 :math:`x_0, x_1, \cdots,x_{k-1}` 为基点，以 :math:`x_{k−1}, x_k` 为邻点的 k 阶差商定义为：
+
+.. math::
+  f[x_0,\cdots,x_{k-2},x_{k-1},x_k]=\frac{f[x_0,\cdots,x_{k-2},x_k]-f[x_0,\cdots,x_{k-2},x_{k-1}]}{x_k-x_{k-1}}
+
+而 Newton 基定义为：
+
+.. math::
+  \omega_0(x)=1, \omega_i(x)=\prod_{j=0}^{i-1}(x-x_j)
+
+则：
+
+.. math::
+  N_n(x)=f(x_0)+f[x_0,x_1]\omega_1(x)+\cdots+f[x_0,x_1,\cdots,x_n]\omega_n(x)
+
+事实上， :math:`L_n(x)\equiv N_n(x)` 。
+
+Hermite插值
+===========
+
+给定的条件既有函数值又有导函数值时使用。一般采用待定系数法确定，例如给定：
+
++-----------------+---------------+---------------+--------------+
+| :math:`x_j`     | :math:`a`     | :math:`c`     | :math:`b`    |
++=================+===============+===============+==============+
+| :math:`f(x_j)`  | :math:`y(a)`  | :math:`y(c)`  | :math:`y(b)` |
++-----------------+---------------+---------------+--------------+
+| :math:`f'(x_j)` | :math:`y'(a)` | :math:`y'(c)` |              |
++-----------------+---------------+---------------+--------------+
+
+则先写出 Lagarange 插值函数 :math:`L_2(x)` ，并设 :math:`H(x)=L_2(x)+(Ax+B)(x-a)(x-b)(x-c)` ，再利用 :math:`H'(a)=y'(a), H'(c)=y'(c)` 得出待定系数即可。其余项估计为：
+
+.. math::
+  f(x)=H(x)+\frac{f^{(5)}(\xi)}{5!}(x-a)^2(x-c)^2(x-b)
+
+样条插值
+========
+
+等距节点高次插值会产生 Runge 现象，解决方法有Legengre 谱配点法以及样条插值。
+
+.. note::
+  **Legengre 谱配点法** ：Legendre 正交多项式系 :math:`\{P_k(x)\}_{k=0}^\infty` 。若节点满足 :math:`x_0=-1,x_N=1,\{x_j\}_{j=1}^{N-1}` 为 :math:`\frac{\mathrm d P_N}{\mathrm d x}(x)` 的零点，则此类节点能确保 :math:`[-1,1]` 内的高次插值依然准确。
+
+分片线性插值
+------------
+
+给定分划 :math:`\{x_j\}_{j=0}^n` ，则分片线性函数空间 :math:`\mathbb{S}` （在 :math:`[a,b]` 连续的全体折线）是 :math:`C[a,b]` （连续函数空间）的 n+1 维闭子空间。其基为屋顶函数：
+
+.. math::
+  \begin{aligned}
+  \phi_0(x)&=\left\{\begin{aligned}
+  \frac{x_1-x}{h_1},&\quad x\in[x_0,x_1]\\
+  0,&\quad x\notin[x_0,x_1]
+  \end{aligned}\right. ,\ 
+  \phi_n(x)=\left\{\begin{aligned}
+  \frac{x-x_{n-1}}{h_n},&\quad x\in[x_{n-1},x_n]\\
+  0,&\quad x\notin[x_{n-1},x_n]
+  \end{aligned}\right. ,\\
+  \phi_j(x)&=\left\{\begin{aligned}
+  \frac{x-x_{j-1}}{h_j},&\quad x\in[x_{j-1},x_j]\\
+  \frac{x_{j+1}-x}{h_{j+1}},&\quad x\in[x_j,x_{j+1}]\\
+  0,&\quad x\notin[x_{j-1},x_{j+1}]
+  \end{aligned}\right.
+  \end{aligned}
+  
+
+则对于表格函数 :math:`\{x_j\}_{j=0}^n\mapsto\{u_j\}_{j=0}^n` ，使用分片线性插值算子 :math:`\mathcal{I}_n` 得
+
+.. math::
+  \mathcal{I}_n u(x)=\sum_{j=0}^nu_j\phi_j(x)
+
+余项估计：
+
+.. math::
+  |u(x)-\mathcal{I}_n u(x)|\le\frac{h}{2}\left\|\frac{\mathrm d^2 u}{\mathrm d x^2}\right\|_\infty|x-x_j|,\ \forall x\in[x_{j-1},x_{j+1}]
+
+三次样条插值
+------------
+
+三次样条插值能够保证二阶导函数连续。一般采用三弯矩法。记待定的弯矩为 :math:`S''(x_j)=M_j,\ j=0,1,\cdots,n` ，则
+
+.. math::
+  S''(x)=M_{j-1}\frac{x_j-x}{h_{j-1}}+M_j\frac{x-x_{j-1}}{h_{j-1}},\ \ x_{j-1}\le x\le x_j
+
+其中 :math:`h_{j-1}=x_j-x_{j-1}` 。对其积分两次，并应用插值条件
+
+.. math::
+  S(x_{j-1})=y_{j-1},\ S(x_j)=y_j
+
+可以确定
+
+.. math::
+  \begin{aligned}
+  S(x)&=M_{j-1}\frac{(x_j-x)^3}{6h_{j-1}}+M_j\frac{(x-x_{j-1})^3}{6h_{j-1}}\\
+  &+\left(y_{j-1}-\frac{h_{j-1}^2}{6}M_{j-1}\right)\frac{x_j-x}{h_{j-1}}+\left(y_j-\frac{h_{j-1}^2}{6}M_j\right)\frac{x-x_{j-1}}{h_{j-1}},\ \ x_{j-1}\le x\le x_j
+  \end{aligned}
+
+再根据拼接条件
+
+.. math::
+  S'(x_j+0)=S'(x_j-0),\ \ j=1,2,\cdots,n-1
+
+则得到三弯矩方程
+
+.. math::
+  \mu_j M_{j-1}+2M_j+\lambda_j M_{j+1}=d_j,\ \ j=1,2,\cdots,n-1
+
+其中
+
+.. math::
+  \mu_j=\frac{h_{j-1}}{h_{j-1}+h_j},\ \lambda_j=1-\mu_j,\ d_j=\frac{6}{h_{j-1}+h_j}\left(\frac{y_{j+1}-y_j}{h_j}-\frac{y_j-y_{j-1}}{h_{j-1}}\right)
+
+共有 :math:`n+1` 个未知的弯矩，但仅有 :math:`n-1` 个三弯矩方程，因此必须用边界条件补充两个方程才能求解，常见的边界条件有三种：
+
+1. :math:`S'(x_0)=y_0',S'(x_n)=y_n'`
+2. :math:`S''(x_0)=y_0'',S''(x_n)=y_n''`
+3. 周期性边界条件， :math:`S(x_0)=S(x_n),S'(x_0)=S'(x_n),S''(x_0)=S''(x_n),`
+
+最终总结成 :math:`A\pmb M=\pmb b` 的形式并求解，最后写成分段函数。
+
+:math:`S(x)` 四阶一致收敛于 :math:`f(x)` ：
+
+.. math::
+  \|(f-S)^{(q)}\|_\infty\le C_q h^{4-q}\|f^{(q)}\|_\infty,\quad q=0,1,2

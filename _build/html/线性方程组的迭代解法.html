@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>线性方程组的迭代解法 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="矩阵的特征值" href="矩阵的特征值.html" />
+    <link rel="prev" title="矩阵的分解" href="矩阵的分解.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">线性方程组的迭代解法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">迭代法基本架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jacobi">Jacobi迭代法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gauss-seidel">Gauss-Seidel迭代法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sor">松弛 (SOR) 迭代法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">特殊矩阵的收敛性</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>线性方程组的迭代解法</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/线性方程组的迭代解法.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>线性方程组的迭代解法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>迭代法基本架构<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>将 <span class="math notranslate nohighlight">\(A\pmb x=\pmb b\)</span> 同解转换为 <span class="math notranslate nohighlight">\(\pmb x=B\pmb x+\pmb c\)</span> 。任取初值 <span class="math notranslate nohighlight">\(\pmb x_0\in\mathbb{R}^n\)</span> ，迭代格式</p>
+<div class="math notranslate nohighlight">
+\[\pmb x_k=B\pmb x_{k-1}+\pmb c,\quad k=1,2,\cdots\]</div>
+<p>收敛于 <span class="math notranslate nohighlight">\(\pmb x^\star\)</span> 的充要条件是 <span class="math notranslate nohighlight">\(\rho(B)&lt;1\)</span> 。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>另外可得收敛的充分条件： <span class="math notranslate nohighlight">\(\|B\|&lt;1\)</span></p>
+</div>
+<p>有两种误差估计方法：</p>
+<ol class="arabic simple">
+<li><p>后验（可用于停机准则）： <span class="math notranslate nohighlight">\(\|\pmb x_k-\pmb x^\star\|\le\frac{\|B\|}{1-\|B\|}\|\pmb x_k-\pmb x_{k-1}\|\)</span></p></li>
+<li><p>先验（可用于估计迭代次数及收敛速度）： <span class="math notranslate nohighlight">\(\|\pmb x_k-\pmb x^\star\|\le\frac{\|B\|^k}{1-\|B\|}\|\pmb x_1-\pmb x_0\|\)</span></p></li>
+</ol>
+<p>记 <span class="math notranslate nohighlight">\(A=D-(A_l+A_u), D=\mathrm{diag}(a_{11},a_{22},\cdots,a_{nn})\)</span> ,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A_l=-\begin{pmatrix}
+0\\
+a_{21} &amp; 0\\
+a_{31} &amp; a_{32} &amp; 0\\
+\vdots &amp; \vdots &amp; \ddots &amp; \ddots\\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{n,n-1} &amp; 0
+\end{pmatrix},
+A_u=-\begin{pmatrix}
+0 &amp; a_{12} &amp; a_{13} &amp; \cdots &amp; a_{1n}\\
+&amp; 0 &amp; a_{23} &amp; \cdots a_{2n}\\
+&amp; &amp; 0 &amp; \ddots &amp; \vdots\\
+&amp; &amp; &amp; \ddots &amp; a_{n-1,n}\\
+&amp; &amp; &amp; &amp; 0
+\end{pmatrix}\end{split}\]</div>
+<p>则：</p>
+</div>
+<div class="section" id="jacobi">
+<h2>Jacobi迭代法<a class="headerlink" href="#jacobi" title="永久链接至标题">¶</a></h2>
+<p>Jacobi 矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}=D^{-1}(A_l+A_u)\)</span> ，则迭代格式</p>
+<div class="math notranslate nohighlight">
+\[\pmb x_k=\mathcal{J}\pmb x_{k-1}+D^{-1}\pmb b\]</div>
+<p>为了确定收敛性，需要得到 <span class="math notranslate nohighlight">\(\rho(\mathcal{J})\)</span> ，而其特征方程 <span class="math notranslate nohighlight">\(|\lambda I-\mathcal{J}|=0\)</span> 可以直接写出：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\begin{matrix}
+\lambda a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}\\
+a_{21} &amp; \lambda a_{22} &amp; \cdots &amp; a_{2n}\\
+\vdots &amp; \vdots &amp; &amp; \vdots\\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; \lambda a_{nn}
+\end{matrix}\right|=0\end{split}\]</div>
+</div>
+<div class="section" id="gauss-seidel">
+<h2>Gauss-Seidel迭代法<a class="headerlink" href="#gauss-seidel" title="永久链接至标题">¶</a></h2>
+<p>Gauss-Seidel 矩阵 <span class="math notranslate nohighlight">\(G=(D-A_l)^{-1}A_u\)</span> ，则迭代格式</p>
+<div class="math notranslate nohighlight">
+\[\pmb x_k=G\pmb x_{k-1}+(D-A_l)^{-1}\pmb b\]</div>
+<p>其特征方程也可以直接写出：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\begin{matrix}
+\lambda a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}\\
+\lambda a_{21} &amp; \lambda a_{22} &amp; \cdots &amp; a_{2n}\\
+\vdots &amp; \vdots &amp; &amp; \vdots\\
+\lambda a_{n1} &amp; \lambda a_{n2} &amp; \cdots &amp; \lambda a_{nn}
+\end{matrix}\right|=0\end{split}\]</div>
+</div>
+<div class="section" id="sor">
+<h2>松弛 (SOR) 迭代法<a class="headerlink" href="#sor" title="永久链接至标题">¶</a></h2>
+<p>基本思想是通过加权平均 <span class="math notranslate nohighlight">\(x_i^{(k)}=(1-\omega)x_i^{(k-1)}+\omega y_i^{(k)}\)</span> 减小 <span class="math notranslate nohighlight">\(\rho(B)\)</span> ，加快 Gauss-Seidel 迭代法的收敛速度。记迭代矩阵 <span class="math notranslate nohighlight">\(\mathcal{L}_\omega=(D-\omega A_l)^{-1}[(1-\omega)D+\omega A_u]\)</span> ，则迭代格式：</p>
+<div class="math notranslate nohighlight">
+\[\pmb x_k=\mathcal{L}_\omega\pmb x_{k-1}+\omega(D-\omega A_l)^{-1}\pmb b\]</div>
+<p>目标是选择 <span class="math notranslate nohighlight">\(\omega\)</span> 使得 <span class="math notranslate nohighlight">\(\rho(\mathcal{L}_\omega)\ll1\)</span> 。</p>
+<p>收敛性：</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> ，则</p></li>
+</ol>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\text{SOR迭代法收敛}\Rightarrow 0&lt;\omega&lt;2\]</div>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> 且对称正定，则</p></li>
+</ol>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\text{SOR迭代法收敛}\Leftrightarrow 0&lt;\omega&lt;2\]</div>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2>特殊矩阵的收敛性<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>若 <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> 严格对角占优, 则 A 非异且 Jacobi 迭代法与 Gauss-Seidel 迭代法都收敛。</p></li>
+<li><p>若 <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> 不可约对角占优, 则 Jacobi 迭代法与 Gauss-Seidel 迭代法都收敛。</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="矩阵的特征值.html" class="btn btn-neutral float-right" title="矩阵的特征值" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="矩阵的分解.html" class="btn btn-neutral float-left" title="矩阵的分解" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

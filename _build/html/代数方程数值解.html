@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>代数方程数值解 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="微分方程数值解" href="微分方程数值解.html" />
+    <link rel="prev" title="数值积分" href="数值积分.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">代数方程数值解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">基础理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#newton">Newton切线法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Newton割线法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>代数方程数值解</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/代数方程数值解.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>代数方程数值解<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>基础理论<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>迭代法解方程即将 <span class="math notranslate nohighlight">\(f(x^\star)=0\)</span> 同解转换为 <span class="math notranslate nohighlight">\(x^\star=\psi(x^\star)\)</span> ，进而构造迭代格式 <span class="math notranslate nohighlight">\(x_{n+1}=\psi(x_k)\)</span> 。</p>
+<p>迭代格式的性质：</p>
+<ol class="arabic simple">
+<li><p><strong>全局收敛性</strong> ： <span class="math notranslate nohighlight">\(\psi(x)\)</span> 在 <span class="math notranslate nohighlight">\(\overline{\mathcal{I}}\)</span> 可微并满足 <span class="math notranslate nohighlight">\(\psi(\overline{\mathcal{I}})\subset\overline{\mathcal{I}}\)</span> 且存在正常数 <span class="math notranslate nohighlight">\(L&lt;1\)</span> 使 <span class="math notranslate nohighlight">\(\forall x\in\overline{\mathcal{I}},\ |\psi'(x)|\le L\)</span> ，则存在唯一的不动点且对于任何初值 <span class="math notranslate nohighlight">\(x\in\overline{\mathcal{I}}\)</span> 都收敛。</p></li>
+<li><p>停机准则：</p></li>
+</ol>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[|x^\star-x_k|\le\frac{L}{1-L}|x_k-x_{k-1}|,\ |x^\star-x_k|\le\frac{L^k}{1-L}|x_1-x_0|\]</div>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p><strong>收敛阶</strong> ：若存在正实数 p 使</p></li>
+</ol>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\lim_{k\to\infty}\frac{|x_{k+1}-x^\star|}{|x_k-x^\star|^p}=C_0\]</div>
+<p>则称迭代格式为 p 阶格式。若迭代格式在 <span class="math notranslate nohighlight">\(x^\star\)</span> 的某邻域内连续，且 <span class="math notranslate nohighlight">\(\psi'(x^\star)\ne0\)</span> ，则迭代序列线性收敛。</p>
+</div></blockquote>
+<p>为了加速迭代，可以同解转化为 <span class="math notranslate nohighlight">\(x=\Psi(x)=\psi(x)+\mathcal{C}(\psi(x)-x)\)</span> ，为了使 <span class="math notranslate nohighlight">\(\Psi'(x^\star)\approx0\)</span> ，得到加速形式：</p>
+<div class="math notranslate nohighlight">
+\[x_{k+1}=\psi(x_k)+\frac{\psi'(x_k)}{1-\psi'(x_k)}(\psi(x_k)-x_k)\]</div>
+<p>进一步有 Aitken 方法：</p>
+<div class="math notranslate nohighlight">
+\[x_{k+1}=x_k-\frac{(\psi(x_k)-x_k)^2}{\psi(\psi(x_k))-2\psi(x_k)+x_k}\]</div>
+</div>
+<div class="section" id="newton">
+<h2>Newton切线法<a class="headerlink" href="#newton" title="永久链接至标题">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\psi(x)=x-\frac{f(x)}{f'(x)}\Leftrightarrow x_k=x_{k-1}-\frac{f(x_{k-1})}{f'(x_{k-1})},\ k=1,2,\cdots\]</div>
+<p>若 <span class="math notranslate nohighlight">\(f'(x^\star)\ne 0\)</span> 且 <span class="math notranslate nohighlight">\(f''(x)\)</span> 在 <span class="math notranslate nohighlight">\(x^\star\)</span> 的某个邻域连续，则 Newton 切线法至少平方收敛。</p>
+<p>若 <span class="math notranslate nohighlight">\(f'(x^\star)= 0\)</span> ，即 <span class="math notranslate nohighlight">\(x^\star\)</span> 为 m 重根时， Newton 切线法线性收敛。此时为了加速，可采用改进的 Newton 切线法：</p>
+<div class="math notranslate nohighlight">
+\[x_k=x_{k-1}-m\frac{f(x_{k-1})}{f'(x_{k-1})},\ k=1,2,\cdots\]</div>
+<p>若 <span class="math notranslate nohighlight">\(f^{(m+1)}(x)\)</span> 在 <span class="math notranslate nohighlight">\(x^\star\)</span> 的某个邻域连续，则改进的 Newton 切线法至少平方收敛。</p>
+</div>
+<div class="section" id="id3">
+<h2>Newton割线法<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[x_{k+1}=x_k-\frac{f(x_k)}{f[x_{k-1},x_k]},\ k=1,2,\cdots\]</div>
+<p>不再依赖 <span class="math notranslate nohighlight">\(f'(x)\)</span> ，超线性收敛，收敛阶为 <span class="math notranslate nohighlight">\(p=\frac{\sqrt 5+1}{2}\)</span></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="微分方程数值解.html" class="btn btn-neutral float-right" title="微分方程数值解" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="数值积分.html" class="btn btn-neutral float-left" title="数值积分" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

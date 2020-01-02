@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>线性代数基础 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="矩阵的分解" href="矩阵的分解.html" />
+    <link rel="prev" title="计算方法使我快乐(ρ_・).。" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">线性代数基础</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">行列式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">矩阵数量特征</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">特征值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">向量范数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">矩阵范数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">条件数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">其他</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">特殊矩阵</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">正交矩阵</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">正定矩阵</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">不可约阵</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">对角占优阵</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">克莱默定理</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>线性代数基础</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/线性代数基础.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>线性代数基础<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>行列式<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>行列式的计算：n阶行列式按第i行展开</p>
+<div class="math notranslate nohighlight">
+\[|A|=\sum_{j=1}^n(-1)^{i+j}a_{ij}|A_{ij}|\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(|A_{ij}|\)</span> 为 <span class="math notranslate nohighlight">\(A\)</span> 中 <span class="math notranslate nohighlight">\(a_{ij}\)</span> 的余子式。</p>
+<p>行列式经过初等行、列变换，值不变。且 <span class="math notranslate nohighlight">\(|AB|=|A||B|\)</span> 。</p>
+</div>
+<div class="section" id="id3">
+<h2>矩阵数量特征<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3>特征值<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(A\pmb\alpha=\lambda\pmb\alpha\)</span> ，则 <span class="math notranslate nohighlight">\(\lambda\)</span> 为A的特征值， <span class="math notranslate nohighlight">\(\pmb\alpha\)</span> 为A的特征向量，一般限制在实数域。</p>
+<p>先通过特征多项式 <span class="math notranslate nohighlight">\(|\lambda I-A|=0\)</span> 解出特征值，再代入 <span class="math notranslate nohighlight">\((\lambda I-A)\pmb\alpha=\pmb 0\)</span> ，解出n个线性无关的特征向量。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>将A的特征值按模从大到小排序（包括虚数特征值），第一项的模称为谱半径，即 <span class="math notranslate nohighlight">\(\rho(A)=|\lambda_1|\)</span></p>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>向量范数<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>函数 <span class="math notranslate nohighlight">\(f:\mathbb{R}^n\mapsto\mathbb{R}\)</span> ，若满足以下三条性质，则为向量范数：</p>
+<ul class="simple">
+<li><p>正定性： <span class="math notranslate nohighlight">\(f(\pmb x) \ge 0, f(\pmb x)=0\Leftrightarrow\pmb x=\pmb 0\)</span></p></li>
+<li><p>齐次性： <span class="math notranslate nohighlight">\(f(\alpha \pmb x)=|\alpha|f(\pmb x), \alpha\in\mathbb{R}\)</span></p></li>
+<li><p>次加性（三角不等式）： <span class="math notranslate nohighlight">\(f(\pmb x+\pmb y)\le f(\pmb x)+f(\pmb y)\)</span></p></li>
+</ul>
+<p>常用向量范数包括：</p>
+<ul class="simple">
+<li><p>1范数： <span class="math notranslate nohighlight">\(\|\pmb x\|_1=\sum_{i=1}^n|x_i|\)</span></p></li>
+<li><p>2范数： <span class="math notranslate nohighlight">\(\|\pmb x\|_2=\sqrt{\sum_{i=1}^n|x_i|^2}\)</span></p></li>
+<li><p>无穷范数： <span class="math notranslate nohighlight">\(\|\pmb x\|_\infty=\max\limits_{1\le i\le n}|x_i|\)</span></p></li>
+</ul>
+<p>向量序列 <span class="math notranslate nohighlight">\(\{\pmb x_k\}_{k=1}^\infty\)</span> 在不同范数下收敛性相同，极限唯一。</p>
+</div>
+<div class="section" id="id6">
+<h3>矩阵范数<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>函数 <span class="math notranslate nohighlight">\(f:\mathbb{R}^{n\times n}\mapsto\mathbb{R}\)</span> 除满足正定性、齐次性、次加性外，若海满足次乘性，即 <span class="math notranslate nohighlight">\(f(\pmb x\pmb y)\le f(\pmb x)f(\pmb y)\)</span> ，则为矩阵范数。</p>
+<p>一般构造矩阵范数，要注意保持其与向量范数的相容性（即 <span class="math notranslate nohighlight">\(\|A\pmb x\|_v\le\|A\|_M\|\pmb x\|_v\)</span> ），因而构造算子范数：</p>
+<div class="math notranslate nohighlight">
+\[\|A\|_\mu=\max_{\pmb x\ne \pmb 0}\frac{\|A\pmb x\|_\mu}{\|\pmb x\|_\mu}\]</div>
+<p>可推知：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\|A\|_1=\max\limits_{1\le j\le n}\sum_{i=1}^n |a_{ij}|\)</span> （模的列和最大值）</p></li>
+<li><p><span class="math notranslate nohighlight">\(\|A\|_2=\sqrt{\rho(A^T A)}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\|A\|_\infty=\max\limits_{1\le i\le n}\sum_{j=1}^n |a_{ij}|\)</span> （模的行和最大值）</p></li>
+</ul>
+<p>对于2范数， <span class="math notranslate nohighlight">\(\|A^TA\|_2=\|A\|_2^2, \forall A\in\mathbb{R}^{n\times n}\)</span></p>
+</div>
+<div class="section" id="id7">
+<h3>条件数<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>表示矩阵A受到扰动时，线性方程组 <span class="math notranslate nohighlight">\(A\pmb x=\pmb b\)</span> 解的稳定程度。任意矩阵的条件数恒不小于1，条件数越小，解越稳定，线性方程组呈现良态。</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{cond}(A)=\|A\|\,\|A^{-1}\|\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>可以使用任意一种范数进行计算，下标标明即可。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>其他<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>秩：若矩阵 <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> 中存在n阶子式不为零，而所有n+1阶子式均为零，则秩 <span class="math notranslate nohighlight">\(\mathrm{rank}(A)=n\)</span></p></li>
+<li><p>迹：对矩阵 <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> ， <span class="math notranslate nohighlight">\(\mathrm{tr}(A)=\sum_{i=1}^n a_{ii}=\sum_{i=1}^n\lambda_i\)</span></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>特殊矩阵<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id10">
+<h3>正交矩阵<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>若方阵 Q 满足 <span class="math notranslate nohighlight">\(Q^T=Q^{-1}\Leftrightarrow Q^TQ=I\)</span> ，则 Q 为正交矩阵，其行/列向量组均为正交的单位向量。</p>
+<p>若 U 为正交阵，则 <span class="math notranslate nohighlight">\(\|UA\|_2=\|AU\|_2=\|A\|_2,\forall A\in \mathbb{R}^{n\times n}\)</span></p>
+</div>
+<div class="section" id="id11">
+<h3>正定矩阵<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p>若 <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> ，对于任何 <span class="math notranslate nohighlight">\(\pmb x\ne\pmb 0\)</span> ，均有 <span class="math notranslate nohighlight">\(\pmb x^TA\pmb x&gt;0\)</span> ，则为正定矩阵。类似的有非负定、非正定、负定。</p>
+</div>
+<div class="section" id="id12">
+<h3>不可约阵<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<p>设 <span class="math notranslate nohighlight">\(C = (c_{ij})\)</span> 为 n 阶方阵，若 <span class="math notranslate nohighlight">\(i\ne j, 1 \le i, j \le n\)</span> , 必有 <span class="math notranslate nohighlight">\(c_{ij}\ne0\)</span> 或</p>
+<div class="math notranslate nohighlight">
+\[c_{ik_1}c_{k_1k_2}\cdots c_{k_{s-1}k_s}c_{k_sj}\ne0,\quad1\le k_1, k_2,\cdots, ks \le n;\]</div>
+<p>则称C为不可约阵，也可以用有向图来判断。</p>
+</div>
+<div class="section" id="id13">
+<h3>对角占优阵<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<p>设 <span class="math notranslate nohighlight">\(C = (c_{ij})\)</span> 为 n 阶方阵，若</p>
+<div class="math notranslate nohighlight">
+\[|c_{ii}|\ge\sum_{j\ne i}|c_{ij}|\]</div>
+<p>则 C 为对角占优阵。每个均严格大于则为严格对角占优阵；至少一个均严格大于则为弱严格对角占优阵。不可约的弱严格对角占优阵简称不可约对角占优阵。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>克莱默定理<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h2>
+<p>n阶线性方程组 <span class="math notranslate nohighlight">\(A\pmb x=\pmb b\)</span> 在 <span class="math notranslate nohighlight">\(D=|A|\ne0\)</span> 时有唯一解，为 <span class="math notranslate nohighlight">\(x_j=\frac{D_j}{D}\)</span> 。其中 <span class="math notranslate nohighlight">\(D_j\)</span> 为把D的第j列替换为 <span class="math notranslate nohighlight">\(\pmb b\)</span> 所得的行列式。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="矩阵的分解.html" class="btn btn-neutral float-right" title="矩阵的分解" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="计算方法使我快乐(ρ_・).。" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

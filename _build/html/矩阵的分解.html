@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>矩阵的分解 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="线性方程组的迭代解法" href="线性方程组的迭代解法.html" />
+    <link rel="prev" title="线性代数基础" href="线性代数基础.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">矩阵的分解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lu">LU分解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cholesky">Cholesky分解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">追赶法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#qr">QR分解</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>矩阵的分解</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/矩阵的分解.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>矩阵的分解<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="lu">
+<h2>LU分解<a class="headerlink" href="#lu" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p><strong>定义</strong>： <span class="math notranslate nohighlight">\(A=LU\)</span>，L 为单位下三角矩阵，U 为上三角矩阵</p></li>
+<li><p><strong>手工算法</strong>：采用待定系数法</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+a_{21} &amp; a_{22} &amp; a_{23}\\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{pmatrix}=
+\begin{pmatrix}
+1     \\
+l_{21} &amp; 1      \\
+l_{31} &amp; l_{32} &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+u_{11} &amp; u_{12} &amp; u_{13}\\
+  &amp; u_{22} &amp; u_{23}\\
+  &amp;   &amp; u_{33}
+\end{pmatrix}\end{split}\]</div>
+<p>计算顺序：U第一列 → L第一列 → U第二列 ……</p>
+</li>
+<li><p><strong>程序算法</strong>：按照高斯消元步骤， <span class="math notranslate nohighlight">\(l_{ik}=a_{ik}/a_{kk}\)</span></p></li>
+<li><p><strong>条件</strong>：</p>
+<ol class="arabic simple">
+<li><p>若 <span class="math notranslate nohighlight">\(A\in \mathbb{R}^{n\times n}\)</span> 的 1 至 n-1 阶主子式不为 0，则 <span class="math notranslate nohighlight">\(A=LU\)</span> （采用数学归纳法证明）</p></li>
+<li><p>若 A 可逆，则 LU 分解唯一。</p></li>
+</ol>
+</li>
+<li><p><strong>其他</strong>：为了提高高斯消元法稳定性，程序计算时可以采用按列选主元或全面选主元法。</p></li>
+</ul>
+</div>
+<div class="section" id="cholesky">
+<h2>Cholesky分解<a class="headerlink" href="#cholesky" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p><strong>定义</strong>：若 A 对称正定， <span class="math notranslate nohighlight">\(A=GG^T\)</span> ，G 为下三角矩阵。可以节约内存。</p></li>
+<li><p><strong>手工算法</strong>：同样采用待定系数法。</p></li>
+<li><p><strong>程序算法</strong>： <span class="math notranslate nohighlight">\(A=LU\)</span> ，令 <span class="math notranslate nohighlight">\(D^{1/2}=\mathrm{diag}(u_{11}^{1/2},u_{22}^{1/2},\cdots ,u_{nn}^{1/2})\)</span> ，则 <span class="math notranslate nohighlight">\(G=LD^{1/2}\)</span> 。</p></li>
+<li><p><strong>条件</strong>：若 A 对称正定，则存在 G 使 <span class="math notranslate nohighlight">\(A=GG^T\)</span> ，若指定 G 对角元的符号，则分解唯一。</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>追赶法<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p><strong>定义</strong>：若三对角矩阵 A 弱严格对角占优，则 A 可以 LU 分解，且有简单算法。</p></li>
+<li><p><strong>算法</strong>：采用待定系数法</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{pmatrix}
+a_{1} &amp; c_{1}\\
+b_{2} &amp; a_{2} &amp; c_{2}\\
+&amp; \ddots &amp; \ddots &amp; \ddots \\
+&amp; &amp; b_n &amp; a_n
+\end{pmatrix}=
+\begin{pmatrix}
+1 \\
+e_{2} &amp; 1\\
+&amp; \ddots &amp; \ddots\\
+&amp; &amp; e_n &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+d_{1} &amp; c_{1}\\
+&amp; d_{2} &amp; c_{2}\\
+&amp; &amp; \ddots &amp; \ddots\\
+&amp; &amp; &amp; d_n
+\end{pmatrix}\end{split}\]</div>
+<p>那么递推公式： <span class="math notranslate nohighlight">\(d_1=a_1,\ e_i=\frac{b_i}{d_{i-1}},\ d_i=a_i-c_{i-1}e_i\)</span></p>
+</li>
+<li><p><strong>条件</strong>： 不可约对角占优三对角矩阵。</p></li>
+</ul>
+</div>
+<div class="section" id="qr">
+<h2>QR分解<a class="headerlink" href="#qr" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p><strong>定义</strong>：使用正交矩阵对矩阵变换可以保持条件数，保证线形方程组的求解稳定。即 <span class="math notranslate nohighlight">\(A=QR\)</span> ，其中 Q 为正交矩阵，R 为上三角矩阵且 <span class="math notranslate nohighlight">\(\mathrm{cond}(A)=\mathrm{cond}(R)\)</span> 。</p></li>
+<li><p><strong>算法</strong>：Householder 方法</p>
+<p>取 <span class="math notranslate nohighlight">\(A\)</span> 的第一列 <span class="math notranslate nohighlight">\(\pmb a=(a_{11}, a_{21}, \cdots, a_{n1})^T,\ \sigma=\mathrm{sign}(a_{11})\|\pmb a\|_2\)</span> ，则</p>
+<div class="math notranslate nohighlight">
+\[\pmb v_1 = \frac{\pmb a+\sigma \pmb e_1}{\|\pmb a+\sigma \pmb e_1\|_2},\ H_1=I_n-2\pmb v_1\pmb v_1^T\]</div>
+<p>之后取 <span class="math notranslate nohighlight">\(H_1A\)</span> 的第二列的一部分 <span class="math notranslate nohighlight">\(\pmb a_1^c=(a_{22}^{(1)}, a_{32}^{(1)}, \cdots, a_{n2}^{(1)})^T,\ \sigma_1^c=\mathrm{sign}(a_{22}^{(1)})\|\pmb a_1^c\|_2\)</span> ，则</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\pmb v_1^c = \frac{\pmb a_1^c+\sigma_1^c \pmb e_2^c}{\|\pmb a_1^c+\sigma_1^c \pmb e_2^c\|_2},\ H_1^c=I_{n-1}-2\pmb v_1^c(\pmb v_1^c)^T,\ \text{升阶得}\ H_2=\begin{pmatrix}1\\&amp; H_1^c\end{pmatrix}\end{split}\]</div>
+<p>以此类推，则</p>
+<div class="math notranslate nohighlight">
+\[Q=H_1H_2\cdots H_{n-1},\ R=H_{n-1}\cdots H_2H_1A\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>若 <span class="math notranslate nohighlight">\(\pmb v\in \mathbb{R}^n\)</span> 满足 <span class="math notranslate nohighlight">\(\|\pmb v\|_2=1\)</span> ，则称 <span class="math notranslate nohighlight">\(H=I-2\pmb v\pmb v^T\)</span> 为Hoseholder 矩阵。</p>
+<p>Hoseholder 矩阵为对称正交阵，且升阶后仍为 Household 矩阵</p>
+</div>
+</li>
+<li><p><strong>条件</strong>：若 <span class="math notranslate nohighlight">\(A\in \mathbb{R}^{n\times n}\)</span> ，则存在 QR 分解；若 A 非异且规定 R 对角元的正负号取法, 则 QR 分解唯一。</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="线性方程组的迭代解法.html" class="btn btn-neutral float-right" title="线性方程组的迭代解法" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="线性代数基础.html" class="btn btn-neutral float-left" title="线性代数基础" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

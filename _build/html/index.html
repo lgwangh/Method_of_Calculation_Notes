@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>计算方法使我快乐(ρ_・).。 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="线性代数基础" href="线性代数基础.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>计算方法使我快乐(ρ_・).。</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>计算方法使我快乐(ρ_・).。<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">目录：</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="线性代数基础.html#id2">行列式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="线性代数基础.html#id3">矩阵数量特征</a></li>
+<li class="toctree-l2"><a class="reference internal" href="线性代数基础.html#id9">特殊矩阵</a></li>
+<li class="toctree-l2"><a class="reference internal" href="线性代数基础.html#id14">克莱默定理</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="矩阵的分解.html#lu">LU分解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="矩阵的分解.html#cholesky">Cholesky分解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="矩阵的分解.html#id2">追赶法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="矩阵的分解.html#qr">QR分解</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="线性方程组的迭代解法.html#id2">迭代法基本架构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="线性方程组的迭代解法.html#jacobi">Jacobi迭代法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="线性方程组的迭代解法.html#gauss-seidel">Gauss-Seidel迭代法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="线性方程组的迭代解法.html#sor">松弛 (SOR) 迭代法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="线性方程组的迭代解法.html#id3">特殊矩阵的收敛性</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="矩阵的特征值.html#id2">高次方程与特征值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="矩阵的特征值.html#qr">QR方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="矩阵的特征值.html#id3">幂法与反幂法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="矩阵的特征值.html#id4">原点平移反幂法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="插值算法.html#lagarange">Lagarange插值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="插值算法.html#newton">Newton插值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="插值算法.html#hermite">Hermite插值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="插值算法.html#id2">样条插值</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="拟合算法.html#id2">正交多项式系</a></li>
+<li class="toctree-l2"><a class="reference internal" href="拟合算法.html#id3">最佳平方逼近</a></li>
+<li class="toctree-l2"><a class="reference internal" href="拟合算法.html#id4">最小二乘法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="数值积分.html#id2">一般求积公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="数值积分.html#id3">等距节点求积公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="数值积分.html#id4">复化求积公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="数值积分.html#romberg">Romberg积分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="数值积分.html#gauss">Gauss求积公式</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="代数方程数值解.html#id2">基础理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="代数方程数值解.html#newton">Newton切线法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="代数方程数值解.html#id3">Newton割线法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="微分方程数值解.html#id2">迭代格式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="微分方程数值解.html#id5">各种迭代格式比较</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="线性代数基础.html" class="btn btn-neutral float-right" title="线性代数基础" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

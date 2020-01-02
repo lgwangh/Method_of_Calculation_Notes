@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>微分方程数值解 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="代数方程数值解" href="代数方程数值解.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="拟合算法.html">拟合算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">微分方程数值解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">迭代格式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">绝对稳定性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">局部截断误差</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">各种迭代格式比较</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>微分方程数值解</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/微分方程数值解.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>微分方程数值解<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>迭代格式<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>一阶微分方程初值问题：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\{
+\begin{aligned}
+\frac{\mathrm d u}{\mathrm d t}&amp;=f(t,u),t\in(0,T]\\
+u(0) &amp;= u_0
+\end{aligned}
+\right.\end{split}\]</div>
+<p>在满足连续条件和有界条件时有唯一解。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>有界条件，即 Lipschiz 条件：存在正常数 L，使得</p>
+<div class="math notranslate nohighlight">
+\[|f(t,u_1)-f(t,u_2)|\le L|u_1-u_2|,\quad \forall t\in(0,T]\]</div>
+</div>
+<div class="section" id="id3">
+<h3>绝对稳定性<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>考虑模型方程</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\{\begin{aligned}
+\frac{\mathrm d u}{\mathrm d t}&amp;=\lambda u,\ \lambda\in\mathbb{C}\\
+u(0)&amp;=u^0
+\end{aligned}\right.\end{split}\]</div>
+<p>分为三步：</p>
+<ol class="arabic simple">
+<li><p>数值解的理论值 <span class="math notranslate nohighlight">\(u^{m+1}=g(\tau,\lambda)u^m\)</span></p></li>
+<li><p>数值解的实际计算值 <span class="math notranslate nohighlight">\(\tilde u^{m+1}=g(\tau,\lambda)\tilde u^m\)</span></p></li>
+<li><p>数值解的误差方程 <span class="math notranslate nohighlight">\(\epsilon^{m+1}=g(\tau,\lambda)\epsilon^m\)</span></p></li>
+<li><p>则 <span class="math notranslate nohighlight">\(|g(\tau,\lambda)|\le1\)</span> 时绝对稳定</p></li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h3>局部截断误差<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>设 <span class="math notranslate nohighlight">\(\hat u^{m+1}\)</span> 是用精确解 <span class="math notranslate nohighlight">\(u(t_m)\)</span> 代替数值解 <span class="math notranslate nohighlight">\(u^m\)</span> 后按某格式计算一步得到的数值解，则该格式的局部截断误差为 <span class="math notranslate nohighlight">\(T^{m+1}=u(t_{m+1})-\hat u^{m+1}\)</span> 。</p>
+<p>求法是结合Taylor展开、原方程，将 <span class="math notranslate nohighlight">\(\hat u^{m+1}\)</span> 用 <span class="math notranslate nohighlight">\(u(t_{m+1})\)</span> 和 <span class="math notranslate nohighlight">\(u^{(n)}(t_m)\)</span> 表示出来。有时还要用到 Lipschiz 条件。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>各种迭代格式比较<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>从不同的积分公式可推出不同的格式：</p>
+<ul class="simple">
+<li><p>左矩形公式：Euler显格式</p></li>
+<li><p>右矩形公式：Euler隐格式</p></li>
+<li><p>梯形公式：梯形格式（只迭代一步：预估校正格式）</p></li>
+<li><p>中矩形公式：中矩形格式</p></li>
+<li><p>泰勒逼近：Runge-Kutta 格式</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 59%" />
+<col style="width: 18%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>格式</p></th>
+<th class="head"><p>公式</p></th>
+<th class="head"><p>绝对收敛域</p></th>
+<th class="head"><p>局部截断误差 <span class="math notranslate nohighlight">\(T_{m+1}\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Euler显格式</p></td>
+<td><p><span class="math notranslate nohighlight">\(u^{m+1}=u^m+\tau f(t_m,u^m)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(|1+\tau\lambda|\le1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac12\tau^2u''(t_m)+O(\tau^3)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Euler隐格式*</p></td>
+<td><p><span class="math notranslate nohighlight">\(u^{m+1}=u^m+\tau f(t_{m+1},u^{m+1})\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(|1-\tau\lambda|\ge1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\frac12\tau^2u''(t_m)+O(\tau^3)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>梯形格式*</p></td>
+<td><p><span class="math notranslate nohighlight">\(u^{m+1}=u^m+\frac{\tau}{2}(f(t_m,u^m)+f(t_{m+1},u^{m+1}))\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\Re(\tau\lambda)\le0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\frac{1}{12}\tau^3u'''(t_m)+O(\tau^4)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>预估校正格式</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{\begin{aligned}\overline u^{m+1} &amp;= u^m +\tau f(t_m,u^m)\\u^{m+1} &amp;= u^m +\frac{1}{2}\tau[f(t_m,u^m)+f(t_{m+1},\overline u^{m+1})]\end{aligned}\right.\)</span></p></td>
+<td rowspan="2"><p><span class="math notranslate nohighlight">\(|1+\tau\lambda+\frac12(\tau\lambda)^2|\le1\)</span></p></td>
+<td rowspan="2"><p><span class="math notranslate nohighlight">\(O(\tau^3)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>二级二阶R-K格式</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{\begin{aligned}K_1&amp;=f(t_m,u^m)\\K_2&amp;=f(t_m+\tau,u^m+\tau K_1)\\u^{m+1}&amp;=u^m+\frac{\tau}{2}(K_1+K_2)\end{aligned}\right.\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>中矩形格式</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{\begin{aligned}u^{m+1}&amp;=u^{m-1}+2\tau f(t_m,u^m)\\u^1&amp;=u(0)+\tau f(0,u(0))\end{aligned}\right.\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(|1+\tau\lambda+\frac12(\tau\lambda)^2|\le1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(O(\tau^3)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li><p>每个迭代公式其实都包括初值条件 <span class="math notranslate nohighlight">\(u^0=u(0)\)</span></p></li>
+<li><p>欧拉隐格式和梯形格式都需要采用迭代法，先使用显格式求出 <span class="math notranslate nohighlight">\(u^{m+1,[0]}\)</span> ，再迭代，一般不超过 3 次</p></li>
+<li><p>预估校正格式等价于二级二阶 Runge-Kutta 格式，只是技术路径不同</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="代数方程数值解.html" class="btn btn-neutral float-left" title="代数方程数值解" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

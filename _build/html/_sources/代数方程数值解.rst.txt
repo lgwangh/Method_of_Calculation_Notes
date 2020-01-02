@@ -1,0 +1,56 @@
+==============
+代数方程数值解
+==============
+
+基础理论
+========
+
+迭代法解方程即将 :math:`f(x^\star)=0` 同解转换为 :math:`x^\star=\psi(x^\star)` ，进而构造迭代格式 :math:`x_{n+1}=\psi(x_k)` 。
+
+迭代格式的性质：
+
+1. **全局收敛性** ： :math:`\psi(x)` 在 :math:`\overline{\mathcal{I}}` 可微并满足 :math:`\psi(\overline{\mathcal{I}})\subset\overline{\mathcal{I}}` 且存在正常数 :math:`L<1` 使 :math:`\forall x\in\overline{\mathcal{I}},\ |\psi'(x)|\le L` ，则存在唯一的不动点且对于任何初值 :math:`x\in\overline{\mathcal{I}}` 都收敛。
+2. 停机准则：
+
+  .. math::
+    |x^\star-x_k|\le\frac{L}{1-L}|x_k-x_{k-1}|,\ |x^\star-x_k|\le\frac{L^k}{1-L}|x_1-x_0|
+
+3. **收敛阶** ：若存在正实数 p 使
+
+  .. math::
+    \lim_{k\to\infty}\frac{|x_{k+1}-x^\star|}{|x_k-x^\star|^p}=C_0
+
+  则称迭代格式为 p 阶格式。若迭代格式在 :math:`x^\star` 的某邻域内连续，且 :math:`\psi'(x^\star)\ne0` ，则迭代序列线性收敛。
+
+为了加速迭代，可以同解转化为 :math:`x=\Psi(x)=\psi(x)+\mathcal{C}(\psi(x)-x)` ，为了使 :math:`\Psi'(x^\star)\approx0` ，得到加速形式：
+
+.. math::
+  x_{k+1}=\psi(x_k)+\frac{\psi'(x_k)}{1-\psi'(x_k)}(\psi(x_k)-x_k)
+
+进一步有 Aitken 方法：
+
+.. math::
+  x_{k+1}=x_k-\frac{(\psi(x_k)-x_k)^2}{\psi(\psi(x_k))-2\psi(x_k)+x_k}
+
+Newton切线法
+============
+
+.. math::
+  \psi(x)=x-\frac{f(x)}{f'(x)}\Leftrightarrow x_k=x_{k-1}-\frac{f(x_{k-1})}{f'(x_{k-1})},\ k=1,2,\cdots
+
+若 :math:`f'(x^\star)\ne 0` 且 :math:`f''(x)` 在 :math:`x^\star` 的某个邻域连续，则 Newton 切线法至少平方收敛。
+
+若 :math:`f'(x^\star)= 0` ，即 :math:`x^\star` 为 m 重根时， Newton 切线法线性收敛。此时为了加速，可采用改进的 Newton 切线法：
+
+.. math::
+  x_k=x_{k-1}-m\frac{f(x_{k-1})}{f'(x_{k-1})},\ k=1,2,\cdots
+
+若 :math:`f^{(m+1)}(x)` 在 :math:`x^\star` 的某个邻域连续，则改进的 Newton 切线法至少平方收敛。
+
+Newton割线法
+============
+
+.. math::
+  x_{k+1}=x_k-\frac{f(x_k)}{f[x_{k-1},x_k]},\ k=1,2,\cdots
+
+不再依赖 :math:`f'(x)` ，超线性收敛，收敛阶为 :math:`p=\frac{\sqrt 5+1}{2}`

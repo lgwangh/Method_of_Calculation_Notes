@@ -1,0 +1,122 @@
+========
+拟合算法
+========
+
+正交多项式系
+============
+
+Legendre多项式系
+----------------
+
+- **通式** ： :math:`P_0(x)=1,P_k(x)=\frac{1}{2^k k!}\frac{\mathrm d^k}{\mathrm d x^k}(x^2-1)^k`
+- **递推公式** ： :math:`P_0(x)=1,P_1(x)=x,P_2(x)=\frac 1 2(3x^2-1)`
+
+  .. math::
+    P_{k+1}(x)=\frac{2k+1}{k+1}xP_k(s)-\frac{k}{k+1}P_{k-1}(x)
+
+- **内积** ： :math:`(P_k,P_k)=\frac{2}{2k+1}` ，否则为 0
+- **其他性质** ：奇偶性 :math:`P_k(-x)=(-1)^kP_k(x)` ； :math:`P_k(x)` 在 :math:`(-1,1)` 中有 k 个互异的实零点。
+  
+.. note::
+  推导中用到的公式：
+
+  .. math::
+    \int_0^\frac\pi2 \sin^n(t)\mathrm{d}t=\int_0^\frac\pi2 \cos^n(t)\mathrm{d}t=\left\{
+    \begin{aligned}
+    \frac{(n-1)!!}{n!!},\quad &n \in \text{奇数}\\
+    \frac\pi2\frac{(n-1)!!}{n!!},\quad &n \in \text{偶数}
+    \end{aligned}
+    \right.
+
+  .. math::
+    \frac{\mathrm{d}^n}{\mathrm{d}x^n}(u\cdot v)=\sum_{k=0}^n\mathrm{C}_k^n\frac{\mathrm{d}^{n-k}}{\mathrm{d}x^{n-k}}u\frac{\mathrm{d}^k}{\mathrm{d}x^k}v
+
+Chebyshev多项式系
+-----------------
+
+- **通式** ： :math:`T_k(x)=\cos(k\arccos(x))`
+- **递推公式** ： :math:`T_0(x)=1,T_1(x)=x,T_2(x)=2x^2-1`
+
+  .. math::
+    T_{k+1}=2xT_k(x)-T_{k-1}(x)
+
+- **内积** ：权函数 :math:`\omega(x)=\sqrt{\frac{1}{1-x^2}}` ， :math:`(T_0,T_0)_\omega=\pi` ， :math:`k\ne 0` 时 :math:`(T_k,T_k)_\omega=\frac{\pi}{2}` ，否则为 0
+- **其他性质** ：与Legendre多项式系一致，不过零点是可以求出的
+
+  .. math::
+    x_j=\cos\left(\frac{2j+1}{2k}\pi\right),\ j=0,1,\cdots,k-1
+
+最佳平方逼近
+============
+
+.. note::
+  **Hilbert** 空间：定义线性赋范函数空间 :math:`L_\omega^p(a,b)` 为 :math:`\int_a^b |f(s)|^p\omega(s)\mathrm d s<+\infty` 的实值函数全体（ :math:`\omega(s)` 为权函数）。可以定义范数：
+
+  .. math::
+    \|f\|_{L_\omega^p(a,b)}=\left(\int_a^b|f(s)|^p\omega(s)\,\mathrm{d}s\right)^{\frac 1 p}
+
+  p=2 时为 Hilbert 空间，可以定义内积
+
+  .. math::
+    (f,g)_\omega=\int_a^b f(s)\bar g(s)\omega(s)\mathrm{d}s
+
+  以及夹角 :math:`\theta` 。
+
+取 :math:`L_\omega^2(a,b)` 的 n+1 维子空间
+
+.. math::
+  \mathbb{S}_{n+1}=\mathrm{Span}\{\phi_0(s),\phi_1(s),\cdots,\phi_n(s)\}
+
+设 :math:`f\in L_\omega^2(a,b)` ，有 :math:`\phi^\star\in\mathbb{S}_{n+1}` 使得
+
+.. math::
+  \|f-\phi^\star\|_{L_\omega^2}=\inf_{\phi\in\mathbb{S}_{n+1}}\|f-\phi\|_{L_\omega^2}
+
+则 :math:`\phi^\star` 为 f 在 :math:`\mathbb{S}_{n+1}` 中的最佳平方逼近。其充要条件为
+
+.. math::
+  (f-\phi^\star,\phi_k)_\omega=0,\ k=0,1,\cdots,n;\quad\text{其中}\phi^\star=\sum_{k=0}^nx_k^\star\phi_k
+
+等价为
+
+.. math::
+  G\pmb x=\hat {\pmb f},\ \text{其中}g_{ij}=(\phi_{j},\phi_{i})_\omega,\ \hat f_i=(f,\phi_{i})_\omega,\ i=0,1,\cdots,n
+
+其中 G 对称正定。在进行多项式近似时，采用正交多项式系为基可将其简化为对角矩阵。例如对于定义在 :math:`[-1,1]` 上的函数，采用 Legendre 基，则 :math:`g_{kk}=\frac{2}{2k+1}` ，逼近结果为：
+
+.. math::
+  \phi^\star(x)=\sum_{j=0}^n\left(f,\frac{P_j}{\|P_j\|}\right)\frac{P_j}{\|P_j\|}
+
+也就是 f 的 Fourier 展开的前 n+1 项部分和。进一步可以定义投影算子 :math:`\Pi_n:L_\omega^2(-1,1)\mapsto\mathbb{S}_{n+1}` 满足
+
+.. math::
+  (f-\Pi_nf,\phi)_\omega=0,\quad \forall \phi \in \mathbb{S}_{n+1}
+
+若能找到正交基，则投影算子很容易得出，否则要解法方程。
+
+最小二乘法
+==========
+
+对于一组观测数据（表格函数） :math:`\{s_i\}_{i=1}^m\mapsto\{f_i\}_{i=1}^m` ，采用一组基函数 :math:`\{\phi_j(s)\}_{j=0}^n` 的线性组合逼近：
+
+.. math::
+  \phi(s)=\sum_{j=1}^n x_j\phi_j(x)
+
+记 :math:`a_{ij}=\phi_j(s_i)` 一般 :math:`m>n` ，则超定线性方程组 :math:`A\pmb x=\pmb f` 没有经典解，可以求使得残量 :math:`\pmb r_{\pmb x}=A\pmb x-\pmb f` 的二范数最小时的最小二乘解，即转化为求解法方程：
+
+.. math::
+  A^TA\pmb x^\star=A^T\pmb f
+
+A 的列向量组 :math:`\{\Phi_j\}_{j=0}^n` 线性无关等价于 :math:`A^TA` 对称正定。
+
+逼近误差
+
+.. math::
+  \|\pmb r_{\pmb x^\star}\|_2=\sqrt{\|\pmb f\|_2^2-\sum_{j=0}^nx_j^\star(\Phi_j,\pmb f)}
+
+有时需要对模型函数进行转化才能变为线性组合形式。此外， :math:`\{s_i\}_{i=1}` 也可以是向量数据，即对于空间点的最小二乘法。
+
+推而广之，也可以得到带权 :math:`\omega_i` 的离散平方逼近函数：
+
+.. math::
+  G\pmb x=\hat {\pmb f},\ \text{其中}g_{ij}=\langle\phi_{j},\phi_{i}\rangle_\omega,\ \hat f_i=\langle f,\phi_{i}\rangle_\omega,\ i=0,1,\cdots,n

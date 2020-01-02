@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>拟合算法 &mdash; Method_of_Calculation_Notes  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="数值积分" href="数值积分.html" />
+    <link rel="prev" title="插值算法" href="插值算法.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Method_of_Calculation_Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="矩阵的特征值.html">矩阵的特征值</a></li>
+<li class="toctree-l1"><a class="reference internal" href="插值算法.html">插值算法</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">拟合算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">正交多项式系</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#legendre">Legendre多项式系</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chebyshev">Chebyshev多项式系</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">最佳平方逼近</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">最小二乘法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Method_of_Calculation_Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>拟合算法</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/拟合算法.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>拟合算法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>正交多项式系<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="legendre">
+<h3>Legendre多项式系<a class="headerlink" href="#legendre" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p><strong>通式</strong> ： <span class="math notranslate nohighlight">\(P_0(x)=1,P_k(x)=\frac{1}{2^k k!}\frac{\mathrm d^k}{\mathrm d x^k}(x^2-1)^k\)</span></p></li>
+<li><p><strong>递推公式</strong> ： <span class="math notranslate nohighlight">\(P_0(x)=1,P_1(x)=x,P_2(x)=\frac 1 2(3x^2-1)\)</span></p>
+<div class="math notranslate nohighlight">
+\[P_{k+1}(x)=\frac{2k+1}{k+1}xP_k(s)-\frac{k}{k+1}P_{k-1}(x)\]</div>
+</li>
+<li><p><strong>内积</strong> ： <span class="math notranslate nohighlight">\((P_k,P_k)=\frac{2}{2k+1}\)</span> ，否则为 0</p></li>
+<li><p><strong>其他性质</strong> ：奇偶性 <span class="math notranslate nohighlight">\(P_k(-x)=(-1)^kP_k(x)\)</span> ； <span class="math notranslate nohighlight">\(P_k(x)\)</span> 在 <span class="math notranslate nohighlight">\((-1,1)\)</span> 中有 k 个互异的实零点。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>推导中用到的公式：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\int_0^\frac\pi2 \sin^n(t)\mathrm{d}t=\int_0^\frac\pi2 \cos^n(t)\mathrm{d}t=\left\{
+\begin{aligned}
+\frac{(n-1)!!}{n!!},\quad &amp;n \in \text{奇数}\\
+\frac\pi2\frac{(n-1)!!}{n!!},\quad &amp;n \in \text{偶数}
+\end{aligned}
+\right.\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\mathrm{d}^n}{\mathrm{d}x^n}(u\cdot v)=\sum_{k=0}^n\mathrm{C}_k^n\frac{\mathrm{d}^{n-k}}{\mathrm{d}x^{n-k}}u\frac{\mathrm{d}^k}{\mathrm{d}x^k}v\]</div>
+</div>
+</div>
+<div class="section" id="chebyshev">
+<h3>Chebyshev多项式系<a class="headerlink" href="#chebyshev" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p><strong>通式</strong> ： <span class="math notranslate nohighlight">\(T_k(x)=\cos(k\arccos(x))\)</span></p></li>
+<li><p><strong>递推公式</strong> ： <span class="math notranslate nohighlight">\(T_0(x)=1,T_1(x)=x,T_2(x)=2x^2-1\)</span></p>
+<div class="math notranslate nohighlight">
+\[T_{k+1}=2xT_k(x)-T_{k-1}(x)\]</div>
+</li>
+<li><p><strong>内积</strong> ：权函数 <span class="math notranslate nohighlight">\(\omega(x)=\sqrt{\frac{1}{1-x^2}}\)</span> ， <span class="math notranslate nohighlight">\((T_0,T_0)_\omega=\pi\)</span> ， <span class="math notranslate nohighlight">\(k\ne 0\)</span> 时 <span class="math notranslate nohighlight">\((T_k,T_k)_\omega=\frac{\pi}{2}\)</span> ，否则为 0</p></li>
+<li><p><strong>其他性质</strong> ：与Legendre多项式系一致，不过零点是可以求出的</p>
+<div class="math notranslate nohighlight">
+\[x_j=\cos\left(\frac{2j+1}{2k}\pi\right),\ j=0,1,\cdots,k-1\]</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>最佳平方逼近<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>Hilbert</strong> 空间：定义线性赋范函数空间 <span class="math notranslate nohighlight">\(L_\omega^p(a,b)\)</span> 为 <span class="math notranslate nohighlight">\(\int_a^b |f(s)|^p\omega(s)\mathrm d s&lt;+\infty\)</span> 的实值函数全体（ <span class="math notranslate nohighlight">\(\omega(s)\)</span> 为权函数）。可以定义范数：</p>
+<div class="math notranslate nohighlight">
+\[\|f\|_{L_\omega^p(a,b)}=\left(\int_a^b|f(s)|^p\omega(s)\,\mathrm{d}s\right)^{\frac 1 p}\]</div>
+<p>p=2 时为 Hilbert 空间，可以定义内积</p>
+<div class="math notranslate nohighlight">
+\[(f,g)_\omega=\int_a^b f(s)\bar g(s)\omega(s)\mathrm{d}s\]</div>
+<p>以及夹角 <span class="math notranslate nohighlight">\(\theta\)</span> 。</p>
+</div>
+<p>取 <span class="math notranslate nohighlight">\(L_\omega^2(a,b)\)</span> 的 n+1 维子空间</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{S}_{n+1}=\mathrm{Span}\{\phi_0(s),\phi_1(s),\cdots,\phi_n(s)\}\]</div>
+<p>设 <span class="math notranslate nohighlight">\(f\in L_\omega^2(a,b)\)</span> ，有 <span class="math notranslate nohighlight">\(\phi^\star\in\mathbb{S}_{n+1}\)</span> 使得</p>
+<div class="math notranslate nohighlight">
+\[\|f-\phi^\star\|_{L_\omega^2}=\inf_{\phi\in\mathbb{S}_{n+1}}\|f-\phi\|_{L_\omega^2}\]</div>
+<p>则 <span class="math notranslate nohighlight">\(\phi^\star\)</span> 为 f 在 <span class="math notranslate nohighlight">\(\mathbb{S}_{n+1}\)</span> 中的最佳平方逼近。其充要条件为</p>
+<div class="math notranslate nohighlight">
+\[(f-\phi^\star,\phi_k)_\omega=0,\ k=0,1,\cdots,n;\quad\text{其中}\phi^\star=\sum_{k=0}^nx_k^\star\phi_k\]</div>
+<p>等价为</p>
+<div class="math notranslate nohighlight">
+\[G\pmb x=\hat {\pmb f},\ \text{其中}g_{ij}=(\phi_{j},\phi_{i})_\omega,\ \hat f_i=(f,\phi_{i})_\omega,\ i=0,1,\cdots,n\]</div>
+<p>其中 G 对称正定。在进行多项式近似时，采用正交多项式系为基可将其简化为对角矩阵。例如对于定义在 <span class="math notranslate nohighlight">\([-1,1]\)</span> 上的函数，采用 Legendre 基，则 <span class="math notranslate nohighlight">\(g_{kk}=\frac{2}{2k+1}\)</span> ，逼近结果为：</p>
+<div class="math notranslate nohighlight">
+\[\phi^\star(x)=\sum_{j=0}^n\left(f,\frac{P_j}{\|P_j\|}\right)\frac{P_j}{\|P_j\|}\]</div>
+<p>也就是 f 的 Fourier 展开的前 n+1 项部分和。进一步可以定义投影算子 <span class="math notranslate nohighlight">\(\Pi_n:L_\omega^2(-1,1)\mapsto\mathbb{S}_{n+1}\)</span> 满足</p>
+<div class="math notranslate nohighlight">
+\[(f-\Pi_nf,\phi)_\omega=0,\quad \forall \phi \in \mathbb{S}_{n+1}\]</div>
+<p>若能找到正交基，则投影算子很容易得出，否则要解法方程。</p>
+</div>
+<div class="section" id="id4">
+<h2>最小二乘法<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>对于一组观测数据（表格函数） <span class="math notranslate nohighlight">\(\{s_i\}_{i=1}^m\mapsto\{f_i\}_{i=1}^m\)</span> ，采用一组基函数 <span class="math notranslate nohighlight">\(\{\phi_j(s)\}_{j=0}^n\)</span> 的线性组合逼近：</p>
+<div class="math notranslate nohighlight">
+\[\phi(s)=\sum_{j=1}^n x_j\phi_j(x)\]</div>
+<p>记 <span class="math notranslate nohighlight">\(a_{ij}=\phi_j(s_i)\)</span> 一般 <span class="math notranslate nohighlight">\(m&gt;n\)</span> ，则超定线性方程组 <span class="math notranslate nohighlight">\(A\pmb x=\pmb f\)</span> 没有经典解，可以求使得残量 <span class="math notranslate nohighlight">\(\pmb r_{\pmb x}=A\pmb x-\pmb f\)</span> 的二范数最小时的最小二乘解，即转化为求解法方程：</p>
+<div class="math notranslate nohighlight">
+\[A^TA\pmb x^\star=A^T\pmb f\]</div>
+<p>A 的列向量组 <span class="math notranslate nohighlight">\(\{\Phi_j\}_{j=0}^n\)</span> 线性无关等价于 <span class="math notranslate nohighlight">\(A^TA\)</span> 对称正定。</p>
+<p>逼近误差</p>
+<div class="math notranslate nohighlight">
+\[\|\pmb r_{\pmb x^\star}\|_2=\sqrt{\|\pmb f\|_2^2-\sum_{j=0}^nx_j^\star(\Phi_j,\pmb f)}\]</div>
+<p>有时需要对模型函数进行转化才能变为线性组合形式。此外， <span class="math notranslate nohighlight">\(\{s_i\}_{i=1}\)</span> 也可以是向量数据，即对于空间点的最小二乘法。</p>
+<p>推而广之，也可以得到带权 <span class="math notranslate nohighlight">\(\omega_i\)</span> 的离散平方逼近函数：</p>
+<div class="math notranslate nohighlight">
+\[G\pmb x=\hat {\pmb f},\ \text{其中}g_{ij}=\langle\phi_{j},\phi_{i}\rangle_\omega,\ \hat f_i=\langle f,\phi_{i}\rangle_\omega,\ i=0,1,\cdots,n\]</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="数值积分.html" class="btn btn-neutral float-right" title="数值积分" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="插值算法.html" class="btn btn-neutral float-left" title="插值算法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Luke
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
