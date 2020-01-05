@@ -100,6 +100,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
 <li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="问题总结.html">问题总结</a></li>
 </ul>
 
             
@@ -224,7 +225,15 @@
 </table>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>证明余项估计需综合使用最值定理与介值定理，把 f 的导函数从积分号中提出来。</p>
+<p>证明余项估计的步骤：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>根据用到的积分节点，构造次数恰等于求积公式代数精确度的 Hermite 插值（可能退化为 Lagarange 插值）函数</p></li>
+<li><p>利用差值函数，写出“积分精确值=求积公式+余项的积分”的形式</p></li>
+<li><p>需综合使用最值定理与介值定理，把 f 的导函数从积分号中提出来</p></li>
+<li><p>将余项积出来</p></li>
+</ol>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="id4">

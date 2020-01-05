@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>搜索 &mdash; Method_of_Calculation_Notes  文档</title>
+  <title>问题总结 &mdash; Method_of_Calculation_Notes  文档</title>
   
 
   
@@ -27,7 +27,6 @@
         <script type="text/javascript" src="_static/language_data.js"></script>
         <script type="text/javascript" src="_static/translations.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="_static/searchtools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -37,7 +36,8 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="genindex.html" />
-    <link rel="search" title="搜索" href="#" /> 
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="微分方程数值解" href="微分方程数值解.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -64,7 +64,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -82,7 +82,7 @@
             
             
               <p class="caption"><span class="caption-text">目录：</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="线性代数基础.html">线性代数基础</a></li>
 <li class="toctree-l1"><a class="reference internal" href="矩阵的分解.html">矩阵的分解</a></li>
 <li class="toctree-l1"><a class="reference internal" href="线性方程组的迭代解法.html">线性方程组的迭代解法</a></li>
@@ -92,7 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="数值积分.html">数值积分</a></li>
 <li class="toctree-l1"><a class="reference internal" href="代数方程数值解.html">代数方程数值解</a></li>
 <li class="toctree-l1"><a class="reference internal" href="微分方程数值解.html">微分方程数值解</a></li>
-<li class="toctree-l1"><a class="reference internal" href="问题总结.html">问题总结</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">问题总结</a></li>
 </ul>
 
             
@@ -138,12 +138,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>搜索</li>
+      <li>问题总结</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/问题总结.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -155,24 +157,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="id1">
+<h1>问题总结<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<ol class="arabic simple">
+<li><p><strong>误差的传递</strong> ：加减法传递绝对误差，结果小数位数与小数位数最短的相同；乘除法传递相对误差，结果有效数字位数与有效数字位数最短的相同。</p></li>
+<li><p><strong>差商的应用</strong> ：给定多项式决定的表格函数，问多项式次数，可以采用差商验证。若 n 阶差商全部为 0，则为 n-1 次</p></li>
+<li><p><strong>QR 分解的结果不唯一</strong> ：根据对角元的正负号，可以有多种结果。</p></li>
+<li><p><strong>迭代法得到精确解的条件</strong> ：当 <span class="math notranslate nohighlight">\(\rho(\mathcal{J})=0\)</span> 或 <span class="math notranslate nohighlight">\(\rho(G)=0\)</span> 时，可以在有限次迭代内得到精确解。</p></li>
+</ol>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="微分方程数值解.html" class="btn btn-neutral float-left" title="微分方程数值解" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -205,14 +211,7 @@
   
   
     
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>
