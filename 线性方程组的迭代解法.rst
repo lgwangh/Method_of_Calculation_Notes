@@ -32,7 +32,7 @@
   \end{pmatrix},
   A_u=-\begin{pmatrix}
   0 & a_{12} & a_{13} & \cdots & a_{1n}\\
-  & 0 & a_{23} & \cdots a_{2n}\\
+  & 0 & a_{23} & \cdots & a_{2n}\\
   & & 0 & \ddots & \vdots\\
   & & & \ddots & a_{n-1,n}\\
   & & & & 0
